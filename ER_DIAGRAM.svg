@@ -1,0 +1,155 @@
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .entity-box { fill: #e3f2fd; stroke: #1976d2; stroke-width: 2; }
+      .junction-box { fill: #fff3e0; stroke: #f57c00; stroke-width: 2; }
+      .entity-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #1976d2; }
+      .field-text { font-family: Arial, sans-serif; font-size: 11px; fill: #333; }
+      .pk-field { font-weight: bold; fill: #d32f2f; }
+      .fk-field { font-style: italic; fill: #388e3c; }
+      .relationship-line { stroke: #666; stroke-width: 2; fill: none; }
+      .relationship-text { font-family: Arial, sans-serif; font-size: 10px; fill: #666; }
+    </style>
+  </defs>
+  
+  <!-- USERS Entity -->
+  <rect x="50" y="50" width="200" height="180" class="entity-box"/>
+  <text x="150" y="70" text-anchor="middle" class="entity-title">USERS</text>
+  <line x1="60" y1="75" x2="240" y2="75" stroke="#1976d2" stroke-width="1"/>
+  
+  <text x="60" y="90" class="field-text pk-field">id (PK) - INTEGER</text>
+  <text x="60" y="105" class="field-text">username - VARCHAR(50)</text>
+  <text x="60" y="120" class="field-text">email - VARCHAR(100)</text>
+  <text x="60" y="135" class="field-text">full_name - VARCHAR(100)</text>
+  <text x="60" y="150" class="field-text">hashed_password - VARCHAR(255)</text>
+  <text x="60" y="165" class="field-text">role - ENUM</text>
+  <text x="60" y="180" class="field-text">is_active - BOOLEAN</text>
+  <text x="60" y="195" class="field-text">created_at - TIMESTAMP</text>
+  <text x="60" y="210" class="field-text">updated_at - TIMESTAMP</text>
+
+  <!-- PROJECTS Entity -->
+  <rect x="350" y="50" width="220" height="180" class="entity-box"/>
+  <text x="460" y="70" text-anchor="middle" class="entity-title">PROJECTS</text>
+  <line x1="360" y1="75" x2="560" y2="75" stroke="#1976d2" stroke-width="1"/>
+  
+  <text x="360" y="90" class="field-text pk-field">id (PK) - INTEGER</text>
+  <text x="360" y="105" class="field-text">name - VARCHAR(100)</text>
+  <text x="360" y="120" class="field-text">description - TEXT</text>
+  <text x="360" y="135" class="field-text">status - ENUM</text>
+  <text x="360" y="150" class="field-text">start_date - TIMESTAMP</text>
+  <text x="360" y="165" class="field-text">end_date - TIMESTAMP</text>
+  <text x="360" y="180" class="field-text fk-field">manager_id (FK) - INTEGER</text>
+  <text x="360" y="195" class="field-text">created_at - TIMESTAMP</text>
+  <text x="360" y="210" class="field-text">updated_at - TIMESTAMP</text>
+
+  <!-- TASKS Entity -->
+  <rect x="650" y="50" width="200" height="200" class="entity-box"/>
+  <text x="750" y="70" text-anchor="middle" class="entity-title">TASKS</text>
+  <line x1="660" y1="75" x2="840" y2="75" stroke="#1976d2" stroke-width="1"/>
+  
+  <text x="660" y="90" class="field-text pk-field">id (PK) - INTEGER</text>
+  <text x="660" y="105" class="field-text">title - VARCHAR(200)</text>
+  <text x="660" y="120" class="field-text">description - TEXT</text>
+  <text x="660" y="135" class="field-text">status - ENUM</text>
+  <text x="660" y="150" class="field-text">priority - ENUM</text>
+  <text x="660" y="165" class="field-text fk-field">project_id (FK) - INTEGER</text>
+  <text x="660" y="180" class="field-text fk-field">assignee_id (FK) - INTEGER</text>
+  <text x="660" y="195" class="field-text">due_date - TIMESTAMP</text>
+  <text x="660" y="210" class="field-text">created_at - TIMESTAMP</text>
+  <text x="660" y="230" class="field-text">updated_at - TIMESTAMP</text>
+
+  <!-- TASK_COMMENTS Entity -->
+  <rect x="650" y="300" width="200" height="120" class="entity-box"/>
+  <text x="750" y="320" text-anchor="middle" class="entity-title">TASK_COMMENTS</text>
+  <line x1="660" y1="325" x2="840" y2="325" stroke="#1976d2" stroke-width="1"/>
+  
+  <text x="660" y="340" class="field-text pk-field">id (PK) - INTEGER</text>
+  <text x="660" y="355" class="field-text">content - TEXT</text>
+  <text x="660" y="370" class="field-text fk-field">task_id (FK) - INTEGER</text>
+  <text x="660" y="385" class="field-text fk-field">author_id (FK) - INTEGER</text>
+  <text x="660" y="400" class="field-text">created_at - TIMESTAMP</text>
+
+  <!-- USER_STORIES Entity -->
+  <rect x="350" y="300" width="220" height="140" class="entity-box"/>
+  <text x="460" y="320" text-anchor="middle" class="entity-title">USER_STORIES</text>
+  <line x1="360" y1="325" x2="560" y2="325" stroke="#1976d2" stroke-width="1"/>
+  
+  <text x="360" y="340" class="field-text pk-field">id (PK) - INTEGER</text>
+  <text x="360" y="355" class="field-text">title - VARCHAR(200)</text>
+  <text x="360" y="370" class="field-text">description - TEXT</text>
+  <text x="360" y="385" class="field-text">acceptance_criteria - TEXT</text>
+  <text x="360" y="400" class="field-text fk-field">project_id (FK) - INTEGER</text>
+  <text x="360" y="415" class="field-text">created_at - TIMESTAMP</text>
+  <text x="360" y="430" class="field-text">updated_at - TIMESTAMP</text>
+
+  <!-- PROJECT_MEMBERS Junction Table -->
+  <rect x="50" y="350" width="200" height="80" class="junction-box"/>
+  <text x="150" y="370" text-anchor="middle" class="entity-title">PROJECT_MEMBERS</text>
+  <text x="150" y="385" text-anchor="middle" class="field-text">(Junction Table)</text>
+  <line x1="60" y1="390" x2="240" y2="390" stroke="#f57c00" stroke-width="1"/>
+  
+  <text x="60" y="405" class="field-text pk-field fk-field">project_id (PK,FK)</text>
+  <text x="60" y="420" class="field-text pk-field fk-field">user_id (PK,FK)</text>
+
+  <!-- Relationships -->
+  
+  <!-- Users to Projects (1:M - manager) -->
+  <line x1="250" y1="140" x2="350" y2="140" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="300" y="130" text-anchor="middle" class="relationship-text">1:M (manages)</text>
+  
+  <!-- Projects to Tasks (1:M) -->
+  <line x1="570" y1="140" x2="650" y2="140" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="610" y="130" text-anchor="middle" class="relationship-text">1:M</text>
+  
+  <!-- Tasks to TaskComments (1:M) -->
+  <line x1="750" y1="250" x2="750" y2="300" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="770" y="275" class="relationship-text">1:M</text>
+  
+  <!-- Projects to UserStories (1:M) -->
+  <line x1="460" y1="230" x2="460" y2="300" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="480" y="265" class="relationship-text">1:M</text>
+  
+  <!-- Users to ProjectMembers (M:M) -->
+  <line x1="150" y1="230" x2="150" y2="350" class="relationship-line"/>
+  <text x="170" y="290" class="relationship-text">M:M</text>
+  
+  <!-- ProjectMembers to Projects (M:M) -->
+  <line x1="250" y1="390" x2="350" y2="390" class="relationship-line"/>
+  
+  <!-- Users to Tasks (1:M - assignee) -->
+  <path d="M 250 180 Q 300 250 Q 600 180 L 650 180" class="relationship-line" fill="none"/>
+  <text x="450" y="200" text-anchor="middle" class="relationship-text">1:M (assigns)</text>
+  
+  <!-- Users to TaskComments (1:M - author) -->
+  <path d="M 250 200 Q 300 300 Q 500 360 L 650 360" class="relationship-line" fill="none"/>
+  <text x="450" y="340" text-anchor="middle" class="relationship-text">1:M (authors)</text>
+
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+    </marker>
+  </defs>
+
+  <!-- Legend -->
+  <rect x="900" y="500" width="250" height="250" fill="none" stroke="#ccc" stroke-width="1"/>
+  <text x="1025" y="520" text-anchor="middle" class="entity-title">LEGEND</text>
+  
+  <rect x="910" y="530" width="15" height="10" class="entity-box"/>
+  <text x="935" y="540" class="field-text">Main Entity</text>
+  
+  <rect x="910" y="550" width="15" height="10" class="junction-box"/>
+  <text x="935" y="560" class="field-text">Junction Table</text>
+  
+  <text x="910" y="580" class="pk-field">PK - Primary Key</text>
+  <text x="910" y="600" class="fk-field">FK - Foreign Key</text>
+  
+  <line x1="910" y1="620" x2="940" y2="620" class="relationship-line" marker-end="url(#arrowhead)"/>
+  <text x="950" y="625" class="field-text">One-to-Many Relationship</text>
+  
+  <text x="910" y="650" class="relationship-text">ENUMS:</text>
+  <text x="910" y="665" class="field-text">UserRole: admin, project_manager, developer</text>
+  <text x="910" y="680" class="field-text">ProjectStatus: planning, in_progress, completed...</text>
+  <text x="910" y="695" class="field-text">TaskStatus: todo, in_progress, done</text>
+  <text x="910" y="710" class="field-text">TaskPriority: low, medium, high, critical</text>
+</svg>

@@ -1,0 +1,426 @@
+{
+  "info": {
+    "name": "Project Management API",
+    "description": "Complete API collection for Project Management Tool",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "12345678"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000/api/v1"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    },
+    {
+      "key": "username",
+      "value": "admin"
+    },
+    {
+      "key": "password",
+      "value": "admin123"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"{{username}}\",\n    \"password\": \"{{password}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (responseCode.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.globals.set(\"access_token\", jsonData.access_token);",
+                  "    pm.collectionVariables.set(\"access_token\", jsonData.access_token);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/users/me",
+              "host": ["{{base_url}}"],
+              "path": ["users", "me"]
+            }
+          }
+        },
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/users/",
+              "host": ["{{base_url}}"],
+              "path": ["users", ""]
+            }
+          }
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"test_user\",\n    \"email\": \"test@example.com\",\n    \"full_name\": \"Test User\",\n    \"password\": \"testpass123\",\n    \"role\": \"developer\",\n    \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/",
+              "host": ["{{base_url}}"],
+              "path": ["users", ""]
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"full_name\": \"Updated Test User\",\n    \"is_active\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/5",
+              "host": ["{{base_url}}"],
+              "path": ["users", "5"]
+            }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/users/5",
+              "host": ["{{base_url}}"],
+              "path": ["users", "5"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "item": [
+        {
+          "name": "Get All Projects",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/projects/",
+              "host": ["{{base_url}}"],
+              "path": ["projects", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Project by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/projects/1",
+              "host": ["{{base_url}}"],
+              "path": ["projects", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Project",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"New Project\",\n    \"description\": \"A new project for testing\",\n    \"status\": \"planning\",\n    \"manager_id\": 2,\n    \"member_ids\": [3, 4]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/projects/",
+              "host": ["{{base_url}}"],
+              "path": ["projects", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Project",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Updated Project Name\",\n    \"status\": \"in_progress\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/projects/1",
+              "host": ["{{base_url}}"],
+              "path": ["projects", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Project",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/projects/2",
+              "host": ["{{base_url}}"],
+              "path": ["projects", "2"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tasks",
+      "item": [
+        {
+          "name": "Get All Tasks",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/tasks/",
+              "host": ["{{base_url}}"],
+              "path": ["tasks", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Tasks by Project",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/tasks/?project_id=1",
+              "host": ["{{base_url}}"],
+              "path": ["tasks", ""],
+              "query": [
+                {
+                  "key": "project_id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Tasks by Assignee",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/tasks/?assignee_id=3",
+              "host": ["{{base_url}}"],
+              "path": ["tasks", ""],
+              "query": [
+                {
+                  "key": "assignee_id",
+                  "value": "3"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Task by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/tasks/1",
+              "host": ["{{base_url}}"],
+              "path": ["tasks", "1"]
+            }
+          }
+        },
+        {
+          "name": "Create Task",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"New Task\",\n    \"description\": \"A new task for testing\",\n    \"status\": \"todo\",\n    \"priority\": \"medium\",\n    \"project_id\": 1,\n    \"assignee_id\": 3,\n    \"due_date\": \"2024-12-31T23:59:59\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/tasks/",
+              "host": ["{{base_url}}"],
+              "path": ["tasks", ""]
+            }
+          }
+        },
+        {
+          "name": "Update Task",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": \"in_progress\",\n    \"priority\": \"high\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/tasks/1",
+              "host": ["{{base_url}}"],
+              "path": ["tasks", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Task",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/tasks/4",
+              "host": ["{{base_url}}"],
+              "path": ["tasks", "4"]
+            }
+          }
+        },
+        {
+          "name": "Add Task Comment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"content\": \"This is a test comment on the task.\",\n    \"task_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/tasks/1/comments",
+              "host": ["{{base_url}}"],
+              "path": ["tasks", "1", "comments"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Get Dashboard Stats",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/dashboard/stats",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "stats"]
+            }
+          }
+        },
+        {
+          "name": "Get Recent Activity",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/dashboard/recent-activity",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "recent-activity"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI Features",
+      "item": [
+        {
+          "name": "Generate User Stories",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"project_description\": \"An ecommerce website where customers can browse products, add to cart, and make payments online. Admin should manage products and view orders.\",\n    \"project_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/ai/generate-user-stories",
+              "host": ["{{base_url}}"],
+              "path": ["ai", "generate-user-stories"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
